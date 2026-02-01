@@ -534,3 +534,29 @@ th:hover {
   border-radius: 4px;
   transition: width 0.1s linear;
 }
+
+@media (max-width: 640px) {
+  .header-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .search-field {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .select-group {
+    width: 100%;
+    display: flex;
+    flex-direction: row; /* Force horizontal layout */
+    gap: 10px;
+  }
+
+  .select-group .input-styled {
+    flex: 1; /* Equal width for both dropdowns */
+    width: 0; /* Prevent overflow */
+    min-width: 0;
+  }
+}
