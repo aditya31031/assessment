@@ -152,7 +152,6 @@ const UserTable = ({ users, currentPage, totalPages, onPageChange, totalUsers, l
 
                     {(() => {
                         const pages = [];
-                        // Always show first page
                         if (totalPages > 0) {
                             pages.push(
                                 <button
@@ -165,16 +164,13 @@ const UserTable = ({ users, currentPage, totalPages, onPageChange, totalUsers, l
                             );
                         }
 
-                        // Ellipsis start
                         if (currentPage > 4) {
                             pages.push(<span key="start-ellipsis" className="pagination-ellipsis">...</span>);
                         }
 
-                        // Middle pages
                         let startPage = Math.max(2, currentPage - 1);
                         let endPage = Math.min(totalPages - 1, currentPage + 1);
 
-                        // Adjust if close to ends
                         if (currentPage <= 4) {
                             endPage = Math.min(totalPages - 1, 4);
                         }
