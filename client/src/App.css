@@ -122,7 +122,7 @@ section {
   display: flex;
   flex-direction: column;
   height: 100%;
-width:90%;
+  width: 100%;
   min-height: 500px;
 
 }
@@ -550,13 +550,16 @@ th:hover {
   .select-group {
     width: 100%;
     display: flex;
-    flex-direction: row; /* Force horizontal layout */
+    flex-direction: row;
+    /* Force horizontal layout */
     gap: 10px;
   }
 
   .select-group .input-styled {
-    flex: 1; /* Equal width for both dropdowns */
-    width: 0; /* Prevent overflow */
+    flex: 1;
+    /* Equal width for both dropdowns */
+    width: 0;
+    /* Prevent overflow */
     min-width: 0;
   }
 }

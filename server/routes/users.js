@@ -21,7 +21,19 @@ router.post('/import', upload.single('file'), (req, res) => {
     const results = [];
     fs.createReadStream(req.file.path)
         .pipe(csv())
-        .on('data', (data) => results.push(data))
+        .on('data', (data) => {
+            results.push({
+                first_name: data['First Name'] || data.first_name || '',
+                last_name: data['Last Name'] || data.last_name || '',
+                email: data['Email'] || data.email || '',
+                company_name: data['Company Name'] || '',
+                city: data['City'] || '',
+                state: data['State'] || '',
+                job_title: data['Job Title'] || '',
+                phone: data['Phone'] || ''
+            });
+        })
+
         .on('end', async () => {
             try {
                 await User.insertMany(results);
@@ -47,7 +59,8 @@ router.get('/', async (req, res) => {
 
         let query = {};
         if (search) {
-            const searchRegex = new RegExp(search, 'i');
+            const escapedSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const searchRegex = new RegExp(escapedSearch, 'i');
             query.$or = [
                 // standard snake_case
                 { first_name: searchRegex },
