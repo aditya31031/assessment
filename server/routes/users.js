@@ -42,7 +42,7 @@ router.get('/', async (req, res) => {
         const limit = parseInt(req.query.limit) || 10;
         const search = req.query.search || '';
         const sortBy = req.query.sortBy || '';
-        const order = req.query.order || 'asc';
+        const order = (req.query.order || 'asc').trim();
 
         const skip = (page - 1) * limit;
 
