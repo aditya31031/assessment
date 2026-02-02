@@ -43,7 +43,7 @@ const UserTable = ({ users, currentPage, totalPages, onPageChange, totalUsers, l
                 <div className="header-top-row">
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <h3>Results Analysis</h3>
-                        <span className="badge-count">{totalUsers || 0} Records (v1.1)</span>
+                        <span className="badge-count">{totalUsers || 0} Records</span>
                     </div>
 
                     {users.length > 0 && (
