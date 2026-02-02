@@ -17,17 +17,8 @@ const UserTable = ({ users, currentPage, totalPages, onPageChange, totalUsers, l
         });
         return Array.from(allKeys);
     };
-    const headers = [
-        'first_name',
-        'last_name',
-        'email',
-        'company_name',
-        'city',
-        'state',
-        'job_title',
-        'phone'
-    ];
 
+    const headers = getHeaders();
 
     const handleDeleteClick = () => {
         setShowDeleteModal(true);
