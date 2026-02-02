@@ -4,8 +4,8 @@ import '../App.css';
 import iconFile from '../assets/icon-file.png';
 
 const FileUpload = ({ onUploadSuccess }) => {
-    const url = "https://assessment-5xpn.onrender.com";
-
+    // const url = "https://assessment-5xpn.onrender.com";
+    const url = "https://assessment-fw77.onrender.com"
     const [file, setFile] = useState(null);
     const [message, setMessage] = useState('');
     const [status, setStatus] = useState('');
