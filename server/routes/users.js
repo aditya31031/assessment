@@ -50,14 +50,12 @@ router.get('/', async (req, res) => {
         if (search) {
             const searchRegex = new RegExp(search, 'i');
             query.$or = [
-                // standard snake_case
                 { first_name: searchRegex },
                 { last_name: searchRegex },
                 { company_name: searchRegex },
                 { email: searchRegex },
                 { city: searchRegex },
                 { state: searchRegex },
-                // Standard Title Case (common in CSVs)
                 { "First Name": searchRegex },
                 { "Last Name": searchRegex },
                 { "Company Name": searchRegex },
@@ -66,7 +64,6 @@ router.get('/', async (req, res) => {
                 { "State": searchRegex },
                 { "Job Title": searchRegex },
                 { "Phone": searchRegex },
-                // Specific test data
                 { "Hero Name": searchRegex },
                 { "Super Power": searchRegex },
                 { "Affiliation": searchRegex }
@@ -76,12 +73,8 @@ router.get('/', async (req, res) => {
 
         let sortOptions = {};
         if (sortBy) {
-            // Ensure we handle both 1/-1 and 'asc'/'desc' if passed to Mongoose directly, 
-            // but here we are constructing the object manually which is safer.
             sortOptions[sortBy] = (order === 'desc') ? -1 : 1;
         } else {
-            // Default sort by _id ascending (Oldest first) to match CSV file order
-            // If the user requests 'desc', we sort by _id descending (Newest first)
             sortOptions = { _id: (order === 'desc') ? -1 : 1 };
         }
 
