@@ -141,7 +141,7 @@ const UserTable = ({ users, currentPage, totalPages, onPageChange, totalUsers, l
                 <span className="page-display">
                     Showing page <strong>{currentPage}</strong> of <strong>{totalPages || 1}</strong>
                 </span>
-                <div className="pagination-btns">
+                <div className="pagination-numbers">
                     <button
                         className="btn-page"
                         onClick={() => onPageChange(currentPage - 1)}
@@ -149,6 +149,72 @@ const UserTable = ({ users, currentPage, totalPages, onPageChange, totalUsers, l
                     >
                         Previous
                     </button>
+
+                    {(() => {
+                        const pages = [];
+                        // Always show first page
+                        if (totalPages > 0) {
+                            pages.push(
+                                <button
+                                    key={1}
+                                    className={`btn-page page-number ${currentPage === 1 ? 'active' : ''}`}
+                                    onClick={() => onPageChange(1)}
+                                >
+                                    1
+                                </button>
+                            );
+                        }
+
+                        // Ellipsis start
+                        if (currentPage > 4) {
+                            pages.push(<span key="start-ellipsis" className="pagination-ellipsis">...</span>);
+                        }
+
+                        // Middle pages
+                        let startPage = Math.max(2, currentPage - 1);
+                        let endPage = Math.min(totalPages - 1, currentPage + 1);
+
+                        // Adjust if close to ends
+                        if (currentPage <= 4) {
+                            endPage = Math.min(totalPages - 1, 4);
+                        }
+                        if (currentPage >= totalPages - 3) {
+                            startPage = Math.max(2, totalPages - 3);
+                        }
+
+                        for (let i = startPage; i <= endPage; i++) {
+                            pages.push(
+                                <button
+                                    key={i}
+                                    className={`btn-page page-number ${currentPage === i ? 'active' : ''}`}
+                                    onClick={() => onPageChange(i)}
+                                >
+                                    {i}
+                                </button>
+                            );
+                        }
+
+                        // Ellipsis end
+                        if (currentPage < totalPages - 3) {
+                            pages.push(<span key="end-ellipsis" className="pagination-ellipsis">...</span>);
+                        }
+
+                        // Always show last page if > 1
+                        if (totalPages > 1) {
+                            pages.push(
+                                <button
+                                    key={totalPages}
+                                    className={`btn-page page-number ${currentPage === totalPages ? 'active' : ''}`}
+                                    onClick={() => onPageChange(totalPages)}
+                                >
+                                    {totalPages}
+                                </button>
+                            );
+                        }
+
+                        return pages;
+                    })()}
+
                     <button
                         className="btn-page"
                         onClick={() => onPageChange(currentPage + 1)}
@@ -158,8 +224,6 @@ const UserTable = ({ users, currentPage, totalPages, onPageChange, totalUsers, l
                     </button>
                 </div>
             </div>
-
-            {/* Delete Confirmation Modal */}
             {showDeleteModal && (
                 <div className="modal-overlay">
                     <div className="modal-content">
